@@ -6,11 +6,11 @@ var TIMER_CONTAINER_ID = "timer-container"
 
 
 function addTimerHtmlToCurrentPage(timerContainerId, timerHtml) {
-    var timerContainer = document.createElement("div")
-    timerContainer.id = timerContainerId
-    var bodyTag = document.body
-    bodyTag.insertBefore(timerContainer, bodyTag.firstChild)
-    timerContainer.innerHTML = timerHtml
+  var timerContainer = document.createElement("div")
+  timerContainer.id = timerContainerId
+  var bodyTag = document.body
+  bodyTag.insertBefore(timerContainer, bodyTag.firstChild)
+  timerContainer.innerHTML = timerHtml
 }
 
 addTimerHtmlToCurrentPage(TIMER_CONTAINER_ID, TEMPLATE)
