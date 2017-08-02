@@ -17,19 +17,18 @@ addTimerHtmlToCurrentPage(TIMER_CONTAINER_ID, TEMPLATE)
 document.getElementById(TIMER_CONTAINER_ID).setAttribute("style", TIMER_CONTAINER_STYLE)
 document.getElementById("timer").setAttribute("style", TIMER_STYLE)
 
-
-function getTimestampInSecs(){
+function getTimestampInSecs() {
   var timestampInMilliseconds = new Date().getTime()
   return Math.round(timestampInMilliseconds/1000)
 }
 
-function padZero(number){
+function padZero(number) {
   return ("00" + String(number)).slice(-2)
 }
 
 var timestampOnStart = getTimestampInSecs()
 
-function displayTimer(){
+function displayTimer() {
   var currentTimestamp = getTimestampInSecs()
   var secsGone = currentTimestamp - timestampOnStart
   var secsLeft = Math.max(TIMEOUT_IN_SECS - secsGone, 0)
