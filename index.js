@@ -17,8 +17,6 @@ document.getElementById("timer").setAttribute("style", TIMER_STYLE)
 
 var INITIAL_TIMEOUT_IN_SECS = 3 * 60
 var SUBSEQUENT_TIMEOUT_IN_SECS = 30
-var INITIAL_TIMEOUT_IN_SECS = 5 //TODO: remove debug values
-var SUBSEQUENT_TIMEOUT_IN_SECS = 3 //TODO: remove debug values
 var NAG_MESSAGES = [
   "Happiness is the real sense of fulfillment that comes from hard work.",
   "There are no secrets to success. It is the result of preparation, hard work, and learning from failure.",
