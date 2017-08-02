@@ -48,7 +48,7 @@ function padZero(number) {
 }
 
 function displayTimer(timeoutInSecs, timestampOnStart) {
-  time = getCurrentTimerTime(timeoutInSecs, timestampOnStart)
+  var time = getCurrentTimerTime(timeoutInSecs, timestampOnStart)
   document.getElementById('timer-minutes').innerHTML = padZero(time.minutes)
   document.getElementById('timer-seconds').innerHTML = padZero(time.seconds)
 }
@@ -63,10 +63,10 @@ Array.prototype.randomElement = function() {
 }
 
 async function startNagging() {
-  timeoutInSecs = INITIAL_TIMEOUT_IN_SECS
+  var timeoutInSecs = INITIAL_TIMEOUT_IN_SECS
   while (true) {
     var timestampOnStart = getTimestampInSecs(timeoutInSecs)
-    currentTimerIntervalId = setInterval(displayTimer.bind(null, timeoutInSecs, timestampOnStart), 300)
+    var currentTimerIntervalId = setInterval(displayTimer.bind(null, timeoutInSecs, timestampOnStart), 300)
     await sleep(timeoutInSecs * 1000)
     clearInterval(currentTimerIntervalId)
     alert(NAG_MESSAGES.randomElement())
