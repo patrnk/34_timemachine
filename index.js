@@ -1,12 +1,15 @@
 var TIMEOUT_IN_SECS = 3 * 60
-var TEMPLATE = '<h1><span id="timer-minutes">00</span>:<span id="timer-seconds">00</span></h1>'
+var TEMPLATE = '<h1 id="timer"><span id="timer-minutes">00</span>:<span id="timer-seconds">00</span></h1>'
+var TIMER_CONTAINER_STYLE = "position: fixed; background: rgba(0, 0, 0, 0.5); z-index: +100500; padding: 0px 3px;"
+var TIMER_STYLE = "font: 36px/1.5 Arial, Helvetica, sans-serif; color: white"
 
 // adds HTML tag to current page
 var timerContainer = document.createElement('div')
-timerContainer.setAttribute("style", "height: 100px;")
+timerContainer.setAttribute("style", TIMER_CONTAINER_STYLE)
 var bodyTag = document.body
 bodyTag.insertBefore(timerContainer, bodyTag.firstChild)
 timerContainer.innerHTML = TEMPLATE
+document.getElementById('timer').setAttribute("style", TIMER_STYLE)
 
 function getTimestampInSecs(){
   var timestampInMilliseconds = new Date().getTime()
