@@ -20,7 +20,7 @@ var SUBSEQUENT_TIMEOUT_IN_SECS = 30
 var NAG_MESSAGES = [
   "Happiness is the real sense of fulfillment that comes from hard work.",
   "There are no secrets to success. It is the result of preparation, hard work, and learning from failure.",
-  "There are noLaziness may appear attractive, but work gives satisfaction. ",
+  "Laziness may appear attractive, but work gives satisfaction. ",
   "Without hard work and discipline it is impossible to be a top professional.",
   "There is simply no substitute for hard work when it comes to achieving success.",
   "The beginning is the most important part of the work."
