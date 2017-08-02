@@ -4,6 +4,7 @@ var TIMER_CONTAINER_STYLE = "position: fixed; background: rgba(0, 0, 0, 0.5); z-
 var TIMER_STYLE = "font: 36px/1.5 Arial, Helvetica, sans-serif; color: white;"
 var TIMER_CONTAINER_ID = "timer-container"
 
+
 function addTimerHtmlToCurrentPage(timerContainerId, timerHtml) {
     var timerContainer = document.createElement("div")
     timerContainer.id = timerContainerId
@@ -12,32 +13,36 @@ function addTimerHtmlToCurrentPage(timerContainerId, timerHtml) {
     timerContainer.innerHTML = timerHtml
 }
 
-
 addTimerHtmlToCurrentPage(TIMER_CONTAINER_ID, TEMPLATE)
 document.getElementById(TIMER_CONTAINER_ID).setAttribute("style", TIMER_CONTAINER_STYLE)
 document.getElementById("timer").setAttribute("style", TIMER_STYLE)
+
 
 function getTimestampInSecs() {
   var timestampInMilliseconds = new Date().getTime()
   return Math.round(timestampInMilliseconds/1000)
 }
 
-function padZero(number) {
-  return ("00" + String(number)).slice(-2)
-}
-
 var timestampOnStart = getTimestampInSecs()
 
-function displayTimer() {
+function getCurrentTimerTime() {
   var currentTimestamp = getTimestampInSecs()
   var secsGone = currentTimestamp - timestampOnStart
   var secsLeft = Math.max(TIMEOUT_IN_SECS - secsGone, 0)
 
   var minutes = Math.floor(secsLeft / 60)
   var seconds = secsLeft - minutes * 60
+  return {minutes: minutes, seconds: seconds}
+}
 
-  document.getElementById('timer-minutes').innerHTML = padZero(minutes)
-  document.getElementById('timer-seconds').innerHTML = padZero(seconds)
+function padZero(number) {
+  return ("00" + String(number)).slice(-2)
+}
+
+function displayTimer() {
+  time = getCurrentTimerTime()
+  document.getElementById('timer-minutes').innerHTML = padZero(time.minutes)
+  document.getElementById('timer-seconds').innerHTML = padZero(time.seconds)
 }
 
 setInterval(displayTimer, 300)
