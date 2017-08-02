@@ -1,4 +1,7 @@
-var TIMEOUT_IN_SECS = 3 * 60
+var INITIAL_TIMEOUT_IN_SECS = 3 * 60
+var SUBSEQUENT_TIMEOUT_IN_SECS = 30
+var INITIAL_TIMEOUT_IN_SECS = 5 //TODO: remove debug values
+var SUBSEQUENT_TIMEOUT_IN_SECS = 3 //TODO: remove debug values
 var TEMPLATE = '<h1 id="timer"><span id="timer-minutes">00</span>:<span id="timer-seconds">00</span></h1>'
 var TIMER_CONTAINER_STYLE = "position: fixed; background: rgba(0, 0, 0, 0.5); z-index: +100500; padding: 0px 3px;"
 var TIMER_STYLE = "font: 36px/1.5 Arial, Helvetica, sans-serif; color: white;"
@@ -17,18 +20,15 @@ addTimerHtmlToCurrentPage(TIMER_CONTAINER_ID, TEMPLATE)
 document.getElementById(TIMER_CONTAINER_ID).setAttribute("style", TIMER_CONTAINER_STYLE)
 document.getElementById("timer").setAttribute("style", TIMER_STYLE)
 
-
 function getTimestampInSecs() {
   var timestampInMilliseconds = new Date().getTime()
   return Math.round(timestampInMilliseconds/1000)
 }
 
-var timestampOnStart = getTimestampInSecs()
-
-function getCurrentTimerTime() {
+function getCurrentTimerTime(timeoutInSecs, timestampOnStart) {
   var currentTimestamp = getTimestampInSecs()
   var secsGone = currentTimestamp - timestampOnStart
-  var secsLeft = Math.max(TIMEOUT_IN_SECS - secsGone, 0)
+  var secsLeft = Math.max(timeoutInSecs - secsGone, 0)
 
   var minutes = Math.floor(secsLeft / 60)
   var seconds = secsLeft - minutes * 60
@@ -39,10 +39,27 @@ function padZero(number) {
   return ("00" + String(number)).slice(-2)
 }
 
-function displayTimer() {
-  time = getCurrentTimerTime()
+function displayTimer(timeoutInSecs, timestampOnStart) {
+  time = getCurrentTimerTime(timeoutInSecs, timestampOnStart)
   document.getElementById('timer-minutes').innerHTML = padZero(time.minutes)
   document.getElementById('timer-seconds').innerHTML = padZero(time.seconds)
 }
 
-setInterval(displayTimer, 300)
+function sleep(ms) {
+  // https://stackoverflow.com/a/39914235/3694363
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function startNagging() {
+  timeoutInSecs = INITIAL_TIMEOUT_IN_SECS
+  while (true) {
+    var timestampOnStart = getTimestampInSecs(timeoutInSecs)
+    currentTimerIntervalId = setInterval(displayTimer.bind(null, timeoutInSecs, timestampOnStart), 300)
+    await sleep(timeoutInSecs * 1000)
+    clearInterval(currentTimerIntervalId)
+    alert("The nag message")
+    timeoutInSecs = SUBSEQUENT_TIMEOUT_IN_SECS
+  }
+}
+
+startNagging()
